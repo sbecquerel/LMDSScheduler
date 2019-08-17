@@ -2,7 +2,9 @@
   "name": "lamaisondessons",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:8081",
   "dependencies": {
+    "@auth0/auth0-spa-js": "^1.1.1",
     "classnames": "^2.2.6",
     "moment": "^2.24.0",
     "react": "^16.9.0",

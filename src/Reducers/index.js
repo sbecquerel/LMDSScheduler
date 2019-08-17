@@ -1,4 +1,4 @@
-import { REQUEST_CALENDAR, RECEIVE_CALENDAR, TOGGLE_STUDENT_STATUS } from '../Actions';
+import { REQUEST_CALENDAR, RECEIVE_CALENDAR, TOGGLE_STUDENT_STATUS } from '../actions';
 
 const reducer = (state = {
   isFetching: false,

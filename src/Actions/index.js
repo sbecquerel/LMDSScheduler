@@ -1,5 +1,3 @@
-import schema from '../Schema'
-
 export const REQUEST_CALENDAR = 'REQUEST_CALENDAR';
 export const RECEIVE_CALENDAR = 'RECEIVE_CALENDAR';
 export const TOGGLE_STUDENT_STATUS = 'TOGGLE_STUDENT_STATUS'
@@ -15,11 +13,10 @@ export const receiveCalendar = (calendar) => ({
 })
 
 export const fetchCalendar = () => dispatch => {
-  dispatch(requestCalendar());
-  /*return fetch(`https://www.reddit.com/r/${subreddit}.json`)
+  dispatch(requestCalendar())
+  return fetch('/calendar')
     .then(response => response.json())
-    .then(json => dispatch(receivePosts(subreddit, json)))*/
-  dispatch(receiveCalendar(schema));
+    .then(calendar => dispatch(receiveCalendar(calendar)))
 }
 
 export const toggleStudentStatus = (teacherName, ts, studentName) => ({
@@ -28,3 +25,21 @@ export const toggleStudentStatus = (teacherName, ts, studentName) => ({
   ts,
   studentName
 })
+
+export const updateStudentStatus = (teacherName, ts, studentName) => dispatch => {
+  return fetch('/save', { 
+    method: 'POST', 
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      teacherName,
+      ts,
+      studentName
+    })
+  }).then(() => {
+    console.log('test')
+    return dispatch(toggleStudentStatus(teacherName, ts, studentName))
+  })
+}
