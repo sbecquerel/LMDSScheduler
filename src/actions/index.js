@@ -39,7 +39,6 @@ export const updateStudentStatus = (teacherName, ts, studentName) => dispatch =>
       studentName
     })
   }).then(() => {
-    console.log('test')
     return dispatch(toggleStudentStatus(teacherName, ts, studentName))
   })
 }
