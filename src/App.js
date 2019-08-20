@@ -1,18 +1,7 @@
 import React from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
 import './App.css'
-import Navbar from './components/Navbar'
-import Slots from './components/Slots'
-import Students from './components/Students'
-import Teachers from './components/Teachers'
+import Controller from './components/Controller'
 import { useAuth0 } from "./auth/auth0Wrapper";
-
-const routes = [
-  {
-    label: "Profs",
-    pathname: "/"
-  },
-]
 
 const App = () => {  
   const { loading, isAuthenticated, loginWithRedirect } = useAuth0()
@@ -31,16 +20,7 @@ const App = () => {
     return <div className="alert alert-primary" role="alert">Redirection pour authentification</div>
   }
 
-  return (
-    <Router>
-      <div>
-        <Navbar routes={routes}/>
-        <Route exact path="/" component={Teachers} />        
-        <Route path="/slots/:teacher_name" component={Slots} />
-        <Route path="/students/:teacher_name/:ts" component={Students} />
-      </div>
-    </Router>
-  )
+  return <Controller />
 }
 
 export default App

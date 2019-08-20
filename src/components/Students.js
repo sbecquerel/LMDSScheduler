@@ -16,14 +16,14 @@ const Students = ({match, calendar, studentsStatus, dispatch}) => {
 
   const slot = teacher.slots.find(slot => slot.ts === ts)
   if (slot === undefined) {
-    return <div>Students not found for {moment.unix(ts).calendar()}</div>
+    return <div>Students not found for {moment.unix(ts).format('LLLL')}</div>
   }
 
   return (
     <div>
       <h1 className="text-center">
         {teacherName}<br/>
-        <small className="text-muted">{moment.unix(ts).calendar()}</small>
+        <small className="text-muted">{moment.unix(ts).format('LLLL')}</small>
       </h1>
       <div className="list-group">
         {slot.students.map((student, i) => (

@@ -19,7 +19,7 @@ const Slots = ({match, calendar}) => {
       <div className="list-group">
           {teacher.slots.map((slot, i) => (
           <Link key={i} to={`/students/${teacherName}/${slot.ts}`} className={classNames("list-group-item", "list-group-item-action")}>
-              {moment.unix(slot.ts).calendar()}
+              {moment.unix(slot.ts).format('LLLL')}
           </Link>
           ))}
       </div>
