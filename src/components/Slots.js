@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import classNames from 'classnames'
-import moment from 'moment'
 
 const Slots = ({match, calendar}) => {
   const 
@@ -18,8 +17,8 @@ const Slots = ({match, calendar}) => {
       <h1 className="text-center">{match.params.teacher_name}</h1>
       <div className="list-group">
           {teacher.slots.map((slot, i) => (
-          <Link key={i} to={`/students/${teacherName}/${slot.ts}`} className={classNames("list-group-item", "list-group-item-action")}>
-              {moment.unix(slot.ts).format('LLLL')}
+          <Link key={i} to={`/students/${teacherName}/${slot.name}`} className={classNames("list-group-item", "list-group-item-action")}>
+              {slot.name}
           </Link>
           ))}
       </div>

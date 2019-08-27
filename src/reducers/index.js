@@ -24,8 +24,8 @@ const reducer = (state = {
       const index = state.studentsStatus.findIndex(
         status => (
           status.teacherName === action.teacherName 
-          && status.ts === action.ts 
-          && status.studentName === action.studentName
+          && status.slotName === action.slotName 
+          && status.studentId === action.student.id
         )
       )
 
@@ -34,8 +34,8 @@ const reducer = (state = {
           ...state,
           studentsStatus: [...state.studentsStatus, {
             teacherName: action.teacherName,
-            ts: action.ts,
-            studentName: action.studentName
+            slotName: action.slotName,
+            studentId: action.student.id
           }]
         }
       } 
