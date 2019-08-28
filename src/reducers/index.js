@@ -31,23 +31,27 @@ const reducer = (state = {
         )
       )
 
-      if (index === -1) {
-        return {
-          ...state,
-          studentsStatus: [...state.studentsStatus, {
-            teacherName: action.teacherName,
-            studentId: action.student.id,
-            slot: action.slot
-          }]
+      if (action.selected === false) {
+        if (index !== -1) {
+          const studentsStatus = [...state.studentsStatus]
+          studentsStatus.splice(index, 1)
+    
+          return {
+            ...state,
+            studentsStatus
+          }
+        }  
+      } else {
+        if (index === -1) {
+          return {
+            ...state,
+            studentsStatus: [...state.studentsStatus, {
+              teacherName: action.teacherName,
+              studentId: action.student.id,
+              slot: action.slot
+            }]
+          }
         }
-      } 
-      
-      const studentsStatus = [...state.studentsStatus]
-      studentsStatus.splice(index, 1)
-
-      return {
-        ...state,
-        studentsStatus
       }
 
     default:

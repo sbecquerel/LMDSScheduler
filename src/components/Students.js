@@ -18,6 +18,31 @@ const Students = ({match, calendar, studentsStatus, dispatch}) => {
     return <div>Students not found for slot index {slotIndex}</div>
   }
 
+  const getButton = (student, index) => {
+    const selected = studentsStatus.findIndex(status =>
+      status.teacherName === teacherName 
+      && status.studentId === student.id
+      && status.slot.day === slot.day
+      && status.slot.hour === slot.hour
+      && status.slot.minutes === slot.minutes
+    ) !== -1
+
+    return (
+      <button 
+        key={index} 
+        type="button" 
+        className={classNames(
+          "list-group-item", 
+          "list-group-item-action",
+          selected ? "active" : ""  
+        )}
+        onClick={() => dispatch(updateStudentStatus(teacherName, slot, student, !selected))}
+      >
+        {student.firstname} {student.lastname}
+      </button>
+    )
+  }
+
   return (
     <div>
       <h1 className="text-center">
@@ -25,26 +50,7 @@ const Students = ({match, calendar, studentsStatus, dispatch}) => {
         <small className="text-muted">{slot.day.charAt(0).toUpperCase()}{slot.day.slice(1)} {slot.hour}h{slot.minutes > 0 ? slot.minutes : ''}</small>
       </h1>
       <div className="list-group">
-        {slot.students.map((student, i) => (
-          <button 
-            key={i} 
-            type="button" 
-            className={classNames(
-              "list-group-item", 
-              "list-group-item-action",
-              studentsStatus.findIndex(status =>
-                status.teacherName === teacherName 
-                && status.studentId === student.id
-                && status.slot.day === slot.day
-                && status.slot.hour === slot.hour
-                && status.slot.minutes === slot.minutes
-              ) !== -1 ? "active" : ""  
-            )}
-            onClick={() => dispatch(updateStudentStatus(teacherName, slot, student))}
-          >
-            {student.firstname} {student.lastname}
-          </button>
-        ))}
+        {slot.students.map(getButton)}
       </div>
     </div>  
   )
