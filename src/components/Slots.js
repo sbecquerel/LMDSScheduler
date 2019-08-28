@@ -17,8 +17,8 @@ const Slots = ({match, calendar}) => {
       <h1 className="text-center">{match.params.teacher_name}</h1>
       <div className="list-group">
           {teacher.slots.map((slot, i) => (
-          <Link key={i} to={`/students/${teacherName}/${slot.name}`} className={classNames("list-group-item", "list-group-item-action")}>
-              {slot.name}
+          <Link key={i} to={`/students/${teacherName}/${i}`} className={classNames("list-group-item", "list-group-item-action")}>
+              {slot.day.charAt(0).toUpperCase()}{slot.day.slice(1)} {slot.hour}h{slot.minutes > 0 ? slot.minutes : ''}
           </Link>
           ))}
       </div>

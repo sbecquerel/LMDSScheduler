@@ -32,7 +32,7 @@ class Controller extends React.Component {
           <Navbar />
           <Route exact path="/" component={Teachers} />        
           <Route path="/slots/:teacher_name" component={Slots} />
-          <Route path="/students/:teacher_name/:ts" component={Students} />
+          <Route path="/students/:teacher_name/:slot_index" component={Students} />
         </div>
       </Router>
     )

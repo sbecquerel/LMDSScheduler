@@ -19,14 +19,14 @@ export const fetchCalendar = () => dispatch => {
     .then(calendar => dispatch(receiveCalendar(calendar)))
 }
 
-export const toggleStudentStatus = (teacherName, slotName, student) => ({
+export const toggleStudentStatus = (teacherName, slot, student) => ({
   type: TOGGLE_STUDENT_STATUS,
   teacherName,
-  slotName,
+  slot,
   student
 })
 
-export const updateStudentStatus = (teacherName, slotName, student) => dispatch => {
+export const updateStudentStatus = (teacherName, slot, student) => dispatch => {
   return fetch('/save', { 
     method: 'POST', 
     headers: {
@@ -35,10 +35,12 @@ export const updateStudentStatus = (teacherName, slotName, student) => dispatch 
     },
     body: JSON.stringify({
       teacherName,
-      slotName,
-      studentId: student.id
+      studentId: student.id,
+      day: slot.day,
+      hour: slot.hour,
+      minutes: slot.minutes
     })
   }).then(() => {
-    return dispatch(toggleStudentStatus(teacherName, slotName, student))
+    return dispatch(toggleStudentStatus(teacherName, slot, student))
   })
 }
