@@ -18,7 +18,7 @@ export const fetchCalendar = () => dispatch => {
   dispatch(requestCalendar())
   return fetch('/calendar', {
     headers: {
-      'Authorization': 'Bearer: ' + AUTH_TOKEN
+      'Authorization': 'Bearer ' + AUTH_TOKEN
     }
   }).then(response => response.json())
     .then(calendar => dispatch(receiveCalendar(calendar)))
