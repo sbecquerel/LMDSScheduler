@@ -2,6 +2,8 @@ export const REQUEST_CALENDAR = 'REQUEST_CALENDAR';
 export const RECEIVE_CALENDAR = 'RECEIVE_CALENDAR';
 export const TOGGLE_STUDENT_STATUS = 'TOGGLE_STUDENT_STATUS'
 
+const AUTH_TOKEN = '03DCB31856300AB56FB7313AEB664C76';
+
 export const requestCalendar = () => ({
   type: REQUEST_CALENDAR
 })
@@ -14,8 +16,11 @@ export const receiveCalendar = (calendar) => ({
 
 export const fetchCalendar = () => dispatch => {
   dispatch(requestCalendar())
-  return fetch('/calendar')
-    .then(response => response.json())
+  return fetch('/calendar', {
+    headers: {
+      'Authorization': 'Bearer: ' + AUTH_TOKEN
+    }
+  }).then(response => response.json())
     .then(calendar => dispatch(receiveCalendar(calendar)))
 }
 
@@ -31,6 +36,7 @@ export const updateStudentStatus = (teacherName, slot, student, selected) => dis
   return fetch('/save', { 
     method: 'POST', 
     headers: {
+      'Authorization': 'Bearer: ' + AUTH_TOKEN,
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
