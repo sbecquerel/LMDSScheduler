@@ -36,7 +36,7 @@ export const updateStudentStatus = (teacherName, slot, student, selected) => dis
   return fetch('/save', { 
     method: 'POST', 
     headers: {
-      'Authorization': 'Bearer: ' + AUTH_TOKEN,
+      'Authorization': 'Bearer ' + AUTH_TOKEN,
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
