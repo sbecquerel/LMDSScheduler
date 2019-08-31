@@ -38,7 +38,7 @@ const Students = ({match, calendar, studentsStatus, dispatch}) => {
         )}
         onClick={() => dispatch(updateStudentStatus(teacherName, slot, student, !selected))}
       >
-        {student.firstname} {student.lastname}
+        {student.firstname.charAt(0).toUpperCase()}{student.firstname.slice(1)} {student.lastname.charAt(0).toUpperCase()}{student.lastname.slice(1)
       </button>
     )
   }

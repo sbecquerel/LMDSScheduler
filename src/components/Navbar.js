@@ -14,7 +14,7 @@ const Navbar = withRouter(({location}) => {
         <Link className={classNames('nav-link', location.pathname === '/' ? 'active' : '')} to='/'>Profs</Link>
       </li>
       <li className="nav-item">
-        <a href="#" className="nav-link" onClick={() => fetchResult()}>Planning</a>
+        <a href="#" className="nav-link" onClick={() => fetchResult()}>Présence</a>
       </li>
       <li className="nav-item">
         <a href="#" className="nav-link" onClick={() => logout()}>Déconnexion</a>
