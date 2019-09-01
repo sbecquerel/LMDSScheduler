@@ -28,7 +28,7 @@ class Controller extends React.Component {
 
     return (
       <Router>
-        <div class="container">
+        <div>
           <Navbar />
           <Route exact path="/" component={Teachers} />        
           <Route path="/slots/:teacher_name" component={Slots} />
