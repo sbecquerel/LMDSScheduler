@@ -50,7 +50,7 @@ const Students = ({match, calendar, studentsStatus, dispatch}) => {
         {teacherName}<br/>
         <small className="text-muted">{slot.day.charAt(0).toUpperCase()}{slot.day.slice(1)} {slot.hour}h{slot.minutes > 0 ? slot.minutes : ''}</small>
       </h1>
-      <div className="list-group">
+      <div className="list-group" style={{marginBottom: '20px'}}>
         {slot.students.map(getButton)}        
       </div>
       <Link className={classNames('nav-link', 'btn', 'btn-secondary')} to={`/slots/${teacherName}`}>

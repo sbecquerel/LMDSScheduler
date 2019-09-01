@@ -9,7 +9,7 @@ const Navbar = withRouter(({location}) => {
   const { logout } = useAuth0();
   
   return (
-    <ul className="nav nav-pills nav-fill">
+    <ul className="nav nav-pills nav-fill" style={{margin: '5px 0 10px'}}>
       <li className="nav-item">
         <Link className={classNames('nav-link', location.pathname === '/' ? 'active' : '')} to='/'>Profs</Link>
       </li>
