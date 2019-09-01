@@ -15,7 +15,7 @@ class Teachers extends React.Component {
     const { calendar } = this.props
 
     return (
-      <div className="list-group">
+      <div className="list-group list-group-flush">
         {calendar.map((teacher, i) => (
           <Link key={i} to={`/slots/${teacher.name}`} className={classNames("list-group-item", "list-group-item-action")}>
             {teacher.name}

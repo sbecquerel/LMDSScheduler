@@ -17,7 +17,7 @@ const Slots = ({match, calendar}) => {
   return (
     <div>
       <h1 className="text-center">{match.params.teacher_name}</h1>
-      <div className="list-group">
+      <div className="list-group list-group-flush">
           {teacher.slots.map((slot, i) => (
           <Link key={i} to={`/students/${teacherName}/${i}`} className={classNames(
             "list-group-item", 
