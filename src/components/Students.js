@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import classNames from 'classnames'
 import { updateStudentStatus } from '../actions'
+import { Link } from 'react-router-dom'
 
 const Students = ({match, calendar, studentsStatus, dispatch}) => {
   const 
@@ -50,8 +51,11 @@ const Students = ({match, calendar, studentsStatus, dispatch}) => {
         <small className="text-muted">{slot.day.charAt(0).toUpperCase()}{slot.day.slice(1)} {slot.hour}h{slot.minutes > 0 ? slot.minutes : ''}</small>
       </h1>
       <div className="list-group">
-        {slot.students.map(getButton)}
+        {slot.students.map(getButton)}        
       </div>
+      <Link className={classNames('nav-link', 'btn', 'btn-secondary')} to={`/slots/${teacherName}`}>
+        OK
+      </Link>
     </div>  
   )
 }
