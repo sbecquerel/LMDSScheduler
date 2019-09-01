@@ -55,7 +55,7 @@ const Students = ({match, calendar, studentsStatus, dispatch}) => {
       </div>
       <Link 
         className={classNames('nav-link', 'btn', 'btn-secondary')} 
-        to={`/slots/${teacherName}`}
+        to={`/slots/${encodeURIComponent(teacherName)}`}
         style={{margin: '0 5px'}}  
       >
         OK
