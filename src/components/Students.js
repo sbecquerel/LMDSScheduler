@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 
 const Students = ({match, calendar, studentsStatus, dispatch}) => {
   const 
-    teacherName = match.params.teacher_name,
+    teacherName = decodeURIComponent(match.params.teacher_name),
     slotIndex = match.params.slot_index,
     teacher = calendar.find(teacher => teacher.name === teacherName)
 

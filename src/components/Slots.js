@@ -6,7 +6,7 @@ import moment from 'moment'
 
 const Slots = ({match, calendar}) => {
   const 
-    teacherName = match.params.teacher_name,
+    teacherName = decodeURIComponent(match.params.teacher_name),
     teacher = calendar.find(teacher => teacher.name === teacherName),
     currentDay = moment().format('dddd')
 
@@ -16,10 +16,10 @@ const Slots = ({match, calendar}) => {
 
   return (
     <div>
-      <h1 className="text-center">{match.params.teacher_name}</h1>
+      <h1 className="text-center">{teacherName}</h1>
       <div className="list-group list-group-flush">
           {teacher.slots.map((slot, i) => (
-          <Link key={i} to={`/students/${teacherName}/${i}`} className={classNames(
+          <Link key={i} to={`/students/${encodeURIComponent(teacherName)}/${i}`} className={classNames(
             "list-group-item", 
             "list-group-item-action",
             (currentDay === slot.day ? "font-weight-bold" : "text-muted")
