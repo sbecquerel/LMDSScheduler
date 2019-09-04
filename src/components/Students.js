@@ -36,7 +36,7 @@ const Students = ({match, calendar, studentsStatus, dispatch}) => {
           "list-group-item", 
           "list-group-item-action",
           selected ? "active" : "",
-          student.status === 'POSE' ? "list-group-item-info" : ""  
+          selected == false && student.status === 'POSE' ? "list-group-item-info" : ""  
         )}
         onClick={() => dispatch(updateStudentStatus(teacherName, slot, student, !selected))}
       >
