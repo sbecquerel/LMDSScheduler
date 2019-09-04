@@ -35,11 +35,13 @@ const Students = ({match, calendar, studentsStatus, dispatch}) => {
         className={classNames(
           "list-group-item", 
           "list-group-item-action",
-          selected ? "active" : ""  
+          selected ? "active" : "",
+          student.status === 'POSE' ? "list-group-item-info" : ""  
         )}
         onClick={() => dispatch(updateStudentStatus(teacherName, slot, student, !selected))}
       >
         {student.firstname.charAt(0).toUpperCase()}{student.firstname.slice(1)} {student.lastname.charAt(0).toUpperCase()}{student.lastname.slice(1)}
+        {student.status === 'POSE' ? <i className="fas fa-star float-right"></i> : ''}        
       </button>
     )
   }
@@ -56,7 +58,7 @@ const Students = ({match, calendar, studentsStatus, dispatch}) => {
       <Link 
         className={classNames('nav-link', 'btn', 'btn-secondary')} 
         to={`/slots/${encodeURIComponent(teacherName)}`}
-        style={{margin: '0 5px'}}  
+        style={{margin: '0 10px'}}  
       >
         OK
       </Link>
