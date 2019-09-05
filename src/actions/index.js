@@ -14,7 +14,7 @@ export const receiveCalendar = (calendar) => ({
   receivedAt: Date.now()
 })
 
-export const fetchResult = () => {
+/*export const fetchResult = () => {
   fetch('/result', {
     method: 'GET',
     headers: new Headers({
@@ -31,7 +31,7 @@ export const fetchResult = () => {
       a.click();    
       a.remove();
   });
-}
+}*/
 
 export const fetchCalendar = () => dispatch => {
   dispatch(requestCalendar())
