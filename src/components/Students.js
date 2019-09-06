@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import classNames from 'classnames'
 import { updateStudentStatus } from '../actions'
 import { Link } from 'react-router-dom'
+import moment from 'moment'
 
 const Students = ({match, calendar, studentsStatus, dispatch}) => {
   const 
@@ -19,7 +20,26 @@ const Students = ({match, calendar, studentsStatus, dispatch}) => {
     return <div>Students not found for slot index {slotIndex}</div>
   }
 
+  const getStatus = student => {
+    if (student.status !== 'POSE') {
+      return null
+    }
+
+    if (student.date_eval !== null 
+      // On ne prend pas les dates d'évaluation des précédentes années
+      && student.date_eval >= moment("2019-08-01", "YYYY-MM-DD").unix()) {
+      const delay = (moment().unix() - student.date_eval) / 60 / 60 / 24;
+
+      if (Math.ceil(delay) > 10) {
+        return 'warn';
+      }
+    }
+
+    return 'new'
+  }
+
   const getButton = (student, index) => {
+
     const selected = studentsStatus.findIndex(status =>
       status.teacherName === teacherName 
       && status.studentId === student.id
@@ -27,6 +47,8 @@ const Students = ({match, calendar, studentsStatus, dispatch}) => {
       && status.slot.hour === slot.hour
       && status.slot.minutes === slot.minutes
     ) !== -1
+
+    const status = getStatus(student)
 
     return (
       <button 
@@ -36,12 +58,14 @@ const Students = ({match, calendar, studentsStatus, dispatch}) => {
           "list-group-item", 
           "list-group-item-action",
           selected ? "active" : "",
-          selected == false && student.status === 'POSE' ? "list-group-item-info" : ""  
+          selected === false && status === 'new' ? "list-group-item-info" : "",
+          selected === false && status === 'warn' ? "list-group-item-danger" : ""  
         )}
         onClick={() => dispatch(updateStudentStatus(teacherName, slot, student, !selected))}
       >
         {student.firstname.charAt(0).toUpperCase()}{student.firstname.slice(1)} {student.lastname.charAt(0).toUpperCase()}{student.lastname.slice(1)}
-        {student.status === 'POSE' ? <i className="fas fa-star float-right"></i> : ''}        
+        {status === 'new' ? <i className="fas fa-star float-right"></i> : ''}
+        {status === 'warn' ? <i className="fas fa-dollar-sign float-right"></i> : ''}
       </button>
     )
   }
