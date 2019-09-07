@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import classNames from 'classnames'
 import { updateStudentStatus } from '../actions'
 import { Link } from 'react-router-dom'
-import moment from 'moment'
+import moment, { relativeTimeRounding } from 'moment'
 
 const Students = ({match, calendar, studentsStatus, dispatch}) => {
   const 
@@ -20,6 +20,16 @@ const Students = ({match, calendar, studentsStatus, dispatch}) => {
     return <div>Students not found for slot index {slotIndex}</div>
   }
 
+  const getDateEvalLimiteTs = () => {
+    let year = moment().year();
+
+    if (moment().isBefore(`${year}-08-01`)) {
+      year--
+    }
+
+    return moment(`${year}-08-01`, "YYYY-MM-DD").unix()
+  }
+
   const getStatus = student => {
     if (student.status !== 'POSE') {
       return null
@@ -27,7 +37,7 @@ const Students = ({match, calendar, studentsStatus, dispatch}) => {
 
     if (student.date_eval !== null 
       // On ne prend pas les dates d'évaluation des précédentes années
-      && student.date_eval >= moment("2019-08-01", "YYYY-MM-DD").unix()) {
+      && student.date_eval >= getDateEvalLimiteTs()) {
       const delay = (moment().unix() - student.date_eval) / 60 / 60 / 24;
 
       if (Math.ceil(delay) > 10) {
