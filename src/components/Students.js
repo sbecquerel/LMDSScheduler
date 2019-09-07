@@ -65,7 +65,10 @@ const Students = ({match, calendar, studentsStatus, dispatch}) => {
       >
         {student.firstname.charAt(0).toUpperCase()}{student.firstname.slice(1)} {student.lastname.charAt(0).toUpperCase()}{student.lastname.slice(1)}
         {status === 'new' ? <i className="fas fa-star float-right"></i> : ''}
-        {status === 'warn' ? <i className="fas fa-dollar-sign float-right"></i> : ''}
+        {status === 'warn' ? 
+          <i className="fas fa-dollar-sign float-right" style={{paddingRight: '0.3rem'}}></i> : 
+          ''
+        }
       </button>
     )
   }
