@@ -23,7 +23,7 @@ class Controller extends React.Component {
     const { isFetching } = this.props
 
     if (isFetching === true) {
-      return <div>Loading...</div>;
+      return <div className="alert alert-primary" role="alert">Récupération des données...</div>;
     }
 
     return (
