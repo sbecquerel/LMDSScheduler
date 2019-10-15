@@ -3,9 +3,9 @@ import { connect } from 'react-redux'
 import classNames from 'classnames'
 import { updateStudentStatus } from '../actions'
 import { Link } from 'react-router-dom'
-import moment, { relativeTimeRounding } from 'moment'
+import moment from 'moment'
 
-const Students = ({match, calendar, studentsStatus, dispatch}) => {
+const Students = ({match, calendar, studentsStatus, updateStatus}) => {
   const 
     teacherName = decodeURIComponent(match.params.teacher_name),
     slotIndex = match.params.slot_index,
@@ -53,9 +53,9 @@ const Students = ({match, calendar, studentsStatus, dispatch}) => {
     const selected = studentsStatus.findIndex(status =>
       status.teacherName === teacherName 
       && status.studentId === student.id
-      && status.slot.day === slot.day
-      && status.slot.hour === slot.hour
-      && status.slot.minutes === slot.minutes
+      && status.day === slot.day
+      && status.hour === slot.hour
+      && status.minutes === slot.minutes
     ) !== -1
 
     const status = getStatus(student)
@@ -71,7 +71,7 @@ const Students = ({match, calendar, studentsStatus, dispatch}) => {
           selected === false && status === 'new' ? "list-group-item-info" : "",
           selected === false && status === 'warn' ? "list-group-item-danger" : ""  
         )}
-        onClick={() => dispatch(updateStudentStatus(teacherName, slot, student, !selected))}
+        onClick={() => updateStatus(teacherName, slot, student, !selected)}
       >
         {student.firstname.charAt(0).toUpperCase()}{student.firstname.slice(1)} {student.lastname.charAt(0).toUpperCase()}{student.lastname.slice(1)}
         {status === 'new' ? <i className="fas fa-star float-right"></i> : ''}
@@ -104,5 +104,10 @@ const Students = ({match, calendar, studentsStatus, dispatch}) => {
 }
 
 const mapStateToProps = state => state
+const mapDispatchToProps = dispatch => ({
+  updateStatus: (teacherName, slot, student, selected) => {
+    return dispatch(updateStudentStatus(teacherName, slot, student, selected))
+  }
+})
 
-export default connect(mapStateToProps)(Students);
+export default connect(mapStateToProps, mapDispatchToProps)(Students)

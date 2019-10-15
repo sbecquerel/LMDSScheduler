@@ -2,7 +2,7 @@
   "name": "lamaisondessons",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://present.lamaisondessons.com",
+  "proxy": "https://intranet.lamaisondessons.com",
   "dependencies": {
     "@auth0/auth0-spa-js": "^1.1.1",
     "classnames": "^2.2.6",
@@ -14,7 +14,8 @@
     "react-scripts": "3.1.0",
     "redux": "^4.0.4",
     "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "socket.io-client": "^2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",

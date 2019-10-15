@@ -1,8 +1,9 @@
-export const REQUEST_CALENDAR = 'REQUEST_CALENDAR';
-export const RECEIVE_CALENDAR = 'RECEIVE_CALENDAR';
-export const TOGGLE_STUDENT_STATUS = 'TOGGLE_STUDENT_STATUS'
+import AUTH_TOKEN from '../authToken';
+import socket from '../socket';
 
-const AUTH_TOKEN = '03DCB31856300AB56FB7313AEB664C76';
+export const REQUEST_CALENDAR = 'REQUEST_CALENDAR'
+export const RECEIVE_CALENDAR = 'RECEIVE_CALENDAR'
+export const TOGGLE_STUDENT_STATUS = 'TOGGLE_STUDENT_STATUS'
 
 export const requestCalendar = () => ({
   type: REQUEST_CALENDAR
@@ -35,6 +36,8 @@ export const receiveCalendar = (calendar) => ({
 
 export const fetchCalendar = () => dispatch => {
   dispatch(requestCalendar())
+
+  
   return fetch('/calendar', {
     headers: {
       'Authorization': 'Bearer ' + AUTH_TOKEN
@@ -43,14 +46,16 @@ export const fetchCalendar = () => dispatch => {
     .then(calendar => dispatch(receiveCalendar(calendar)))
 }
 
-export const toggleStudentStatus = (teacherName, slot, student, selected) => ({
+export const toggleStudentStatus = (teacherName, studentId, day, hour, minutes, selected) => ({
   type: TOGGLE_STUDENT_STATUS,
   teacherName,
-  slot,
-  student,
+  studentId,
+  day,
+  hour,
+  minutes,
   selected
 })
-
+ 
 export const updateStudentStatus = (teacherName, slot, student, selected) => dispatch => {
   return fetch('/save', { 
     method: 'POST', 
@@ -68,6 +73,24 @@ export const updateStudentStatus = (teacherName, slot, student, selected) => dis
       selected
     })
   }).then(() => {
-    return dispatch(toggleStudentStatus(teacherName, slot, student, selected))
+    
+    socket.emit(
+      'toggleStudentStatus', 
+      teacherName, 
+      student.id, 
+      slot.day, 
+      slot.hour, 
+      slot.minutes, 
+      selected
+    );
+
+    return dispatch(toggleStudentStatus(
+      teacherName, 
+      student.id, 
+      slot.day, 
+      slot.hour, 
+      slot.minutes,
+      selected
+    ))
   })
 }

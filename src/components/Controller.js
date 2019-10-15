@@ -2,11 +2,12 @@ import React from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { fetchCalendar } from '../actions'
+import { fetchCalendar, toggleStudentStatus } from '../actions'
 import Navbar from './Navbar'
 import Slots from './Slots'
 import Students from './Students'
 import Teachers from './Teachers'
+import socket from '../socket';
 
 class Controller extends React.Component {
   static propTypes = {
@@ -17,6 +18,9 @@ class Controller extends React.Component {
 
   componentDidMount() {
     this.props.dispatch(fetchCalendar())
+    socket.on('toggleStudentStatus', (teacherName, studentId, day, hour, minutes, selected) => {
+      this.props.dispatch(toggleStudentStatus(teacherName, studentId, day, hour, minutes, selected));
+    })
   }
 
   render() {

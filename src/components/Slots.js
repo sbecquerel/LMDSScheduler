@@ -35,4 +35,4 @@ const Slots = ({match, calendar}) => {
 
 const mapStateToProps = state => state
 
-export default connect(mapStateToProps)(Slots);
+export default connect(mapStateToProps)(Slots)
